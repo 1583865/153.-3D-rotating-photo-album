@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en" ondragstart="return false">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<link rel="stylesheet" type="text/css" href="./demo.css">
+</head>
+<body>
+	<div id="perspective">
+		<div id="wrap">
+			<!-- img[src="./img/$.jpg"]*11 -->
+			<!-- img[src="./img/src ($).jpg"]*9 -->
+			<img src="./img/1.jpg" alt="">
+			<img src="./img/2.jpg" alt="">
+			<img src="./img/3.jpg" alt="">
+			<img src="./img/4.jpg" alt="">
+			<img src="./img/5.jpg" alt="">
+			<img src="./img/6.jpg" alt="">
+			<img src="./img/4.jpg" alt="">
+			<img src="./img/2.jpg" alt="">
+			<img src="./img/5.jpg" alt="">
+			<img src="./img/1.jpg" alt="">
+			<img src="./img/4.jpg" alt="">
+		</div>
+	</div>
+
+
+		
+	<script type="text/javascript">
+	oImg = document.getElementsByTagName("img");
+
+	var length = oImg.length;
+	// 一
+	var deg = 360/length;
+
+	var oWrap = document.getElementById("wrap");
+
+	// 二
+	// 页面加载完毕之后在执行
+window.onload = function() {
+		// 遍历所有图片
+	Array.prototype.forEach.call(oImg,function(ele,index,self){
+		ele.style.transform = "rotateY("+deg*index+"deg) translateZ(350px)";
+		// 三 过度散开
+		ele.style.transition = "1s " + (length - index)*0.1 + "s";
+	});
+
+	}
+
+	// 四
+	// 拖拽
+	// 鼠标点击事件
+	var newX,newY,lastX,lastY,minusX,minusY,rotX = -20,rotY = 0;
+
+	document.onmousedown = function(e){
+		// 第一次旧值产生于第一次点击时
+		lastX = e.clientX;
+		lastY = e.clientY;
+
+		// 移动事件
+		this.onmousemove = function(e){
+			// console.log(e);
+			newX = e.clientX;
+			newY = e.clientY;
+
+			// 假设 求出这个值
+			minusX = newX - lastX;
+			minusY = newY - lastY;
+
+			// 差值累加成为一个新的旋转度数
+			 rotX -= minusY*0.2;
+			 rotY += minusX*0.2;
+
+			 // 效果展示
+			 oWrap.style.transform = "rotateX("+rotX+"deg) rotateY("+rotY+"deg)";
+
+			// 新的位置值用完 变成旧值
+			 lastX = newX;
+			 lastY = newY;
+		}
+
+		// 松开事件
+		this.onmouseup = function(e) {
+			this.onmousemove = null;//清除移动事件
+
+		}
+	}
+	</script>
+
+<!-- 
+1.设置场景景深
+2.设置元素风格
+3.旋转
+
+
+ -->
+
+</body>
+</html>

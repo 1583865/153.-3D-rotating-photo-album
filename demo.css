@@ -1,0 +1,28 @@
+
+body {
+	margin: 0;
+	background: #000;
+	overflow: hidden;
+}
+#perspective {
+	perspective:800px;
+	/*景深*/
+}
+#wrap {
+	position: relative;
+	width: 133px;
+	height: 200px;
+	/*border:1px solid red;*/
+	margin: 200px auto;
+	transform-style: preserve-3d;
+	/*3d场景风格*/
+	transform: rotateX(-20deg) rotateY(0deg);
+	/*旋转度数*/
+
+}
+#wrap img {
+	width: 135px;
+	height: 202px;
+	position: absolute;
+
+}
